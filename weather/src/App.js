@@ -1,25 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import WeatherDisplay from './WeatherDisplay';
+import PLACES from './CITYS';
+import { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePlace: 0,
+    };
+  }
+  render() {
+    const activePlace =  this.state.activePlace;
+    return (
+      <div className="App">
+        <WeatherDisplay zip={"12345"} />
+        {PLACES.map((PLACES, index) => (
+          <button
+            key={index}
+            onClick={() => {
+                console.log('Clicked index '+index);
+              }
+            }
+          >
+            {PLACES.name}
+          </button>
+        ))}
+        <WeatherDisplay
+          key={activePlace}
+          zip={PLACES[activePlace].zip}
+        />
+      </div>
+    );
+  }  
 }
 
 export default App;
