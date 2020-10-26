@@ -14,11 +14,30 @@ class App extends Component {
   render() {
     const activePlace =  this.state.activePlace;
     return (
+      
       <div className="App">
-        <WeatherDisplay
-          key={activePlace}
-          zip={PLACES[activePlace].zip}
-        />
+        <h1>React Simple Weather App</h1>
+        <div className="App-main">
+          <div>
+            <h3>Select a city</h3>
+            <div  
+                bsStyle="pills"
+                stacked
+                activeKey={activePlace}
+                onSelect={index => {
+                  this.setState({ activePlace: index });
+                }}
+            >
+              {PLACES.map((place, index) => (
+                <p key={index} eventKey={index} onClick={() => this.setState({activePlace: index})}>{place.name}</p>                
+              ))}
+            </div>
+          </div>
+          <WeatherDisplay
+            key={activePlace}
+            zip={PLACES[activePlace].zip}
+          />
+        </div>        
       </div>
     );
   }  
